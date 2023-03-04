@@ -36,9 +36,7 @@ const drawedGame = computed(
     grid.value.flat().every((currentValue) => currentValue !== "") &&
     !winner.value
 );
-const colorPlayerClass = computed(() =>
-  actualPlayer.value === "X" ? "x-mark" : "o-mark"
-);
+
 const MakeMove = (x, y) => {
   if (winner.value) return;
   if (grid.value[x][y]) return;
@@ -60,19 +58,20 @@ const ResetGame = () => {
     <h1>Tic Tac Toe Game Victor Ponce</h1>
 
     <h3 class="player-text">
-      Player <span :class="colorPlayerClass">{{ actualPlayer }}</span> turn
+      Player <span>{{ actualPlayer }}</span> turn
     </h3>
 
-    <div class="column">
-      <div v-for="(row, x) in grid" :key="x" class="row">
-        <div
-          v-for="(cell, y) in row"
-          :key="y"
-          @click="MakeMove(x, y)"
-          :class="`cell ${cell === 'X' ? 'x-mark' : 'o-mark'}`"
-        >
-          {{ cell }}
-          <!-- {{ cell === "X" ? "close" : cell === "O" ? "circle" : "" }} -->
+    <div class="table">
+      <div class="table_box">
+        <div v-for="(row, x) in grid" :key="x" class="row">
+          <div
+            v-for="(cell, y) in row"
+            :key="y"
+            @click="MakeMove(x, y)"
+            class="cell"
+          >
+            {{ cell }}
+          </div>
         </div>
       </div>
     </div>
@@ -80,7 +79,7 @@ const ResetGame = () => {
     <div class="text-center">
       <p v-if="drawedGame">draw</p>
       <h2 v-if="winner" class="text-6xl font-bold mb-8">
-        Player <span :class="colorPlayerClass">{{ winner }}</span> wins!
+        Player <span>{{ winner }}</span> wins!
       </h2>
       <button @click="ResetGame">Reset</button>
     </div>
@@ -91,10 +90,13 @@ const ResetGame = () => {
 .container {
   text-align: center;
 }
-.column {
+.table {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.table_box {
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 .row {
   display: flex;
@@ -102,16 +104,18 @@ const ResetGame = () => {
 .cell {
   width: 100px;
   height: 100px;
-  border: 1px solid #000;
+  /* border: 1px solid transparent; */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 30px;
+  background: var(--primary-color);
 }
-.x-mark {
-  color: #000;
+.row > .cell:nth-child(even),
+.row:nth-child(even) > .cell:nth-child(odd) {
+  background: var(--secondary-color);
 }
-.o-mark {
-  color: #e10f0f;
+.row:nth-child(even) > .cell:nth-child(even) {
+  background: var(--primary-color);
 }
 </style>

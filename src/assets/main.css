@@ -9,3 +9,9 @@
 #app {
     font-family: Helvetica, sans-serif;
 }
+html{
+    background: var(--primary-color);
+}
+* {
+    color: var(--white-color);
+}
