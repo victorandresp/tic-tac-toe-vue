@@ -1,5 +1,11 @@
 /* @import './base.css'; */
 
+:root {
+    --primary-color: #f24679;
+    --secondary-color: #ba2c3c;
+    --white-color: #FFFFFF;
+}
+
 #app {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
