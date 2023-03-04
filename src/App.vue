@@ -55,11 +55,21 @@ const ResetGame = () => {
 
 <template>
   <div class="container">
-    <h1>Tic Tac Toe Game Victor Ponce</h1>
+    <h1>
+      Tic Tac Toe Game by
+      <a href="https://github.com/victorandresp/" target="_blank">
+        @victorandresp
+      </a>
+    </h1>
 
-    <h3 class="player-text">
+    <h2 v-if="!drawedGame && !winner">
       Player <span>{{ actualPlayer }}</span> turn
-    </h3>
+    </h2>
+
+    <h2 v-if="drawedGame" class="text--secondary">Draw</h2>
+    <h2 v-if="winner">
+      Player <span class="text--secondary">{{ winner }}</span> wins!
+    </h2>
 
     <div class="table">
       <div class="table_box">
@@ -77,11 +87,7 @@ const ResetGame = () => {
     </div>
 
     <div class="text-center">
-      <p v-if="drawedGame">draw</p>
-      <h2 v-if="winner" class="text-6xl font-bold mb-8">
-        Player <span>{{ winner }}</span> wins!
-      </h2>
-      <button @click="ResetGame">Reset</button>
+      <button class="button--reset" @click="ResetGame">Reset</button>
     </div>
   </div>
 </template>
@@ -104,7 +110,6 @@ const ResetGame = () => {
 .cell {
   width: 100px;
   height: 100px;
-  /* border: 1px solid transparent; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,5 +122,19 @@ const ResetGame = () => {
 }
 .row:nth-child(even) > .cell:nth-child(even) {
   background: var(--primary-color);
+}
+.button--reset {
+  background: var(--secondary-color);
+  border: none;
+  font-size: 20px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.button--reset:hover {
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.text--secondary {
+  color: var(--secondary-color);
 }
 </style>
